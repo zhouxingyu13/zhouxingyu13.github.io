@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Xingyu Zhou"
-description              : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. "
+description              : "Efficient and efficiency low-level vision. "
 repository               : "zhouxingyu13/zhouxingyu13.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -23,7 +23,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 author:
   name             : "Xingyu Zhou"
   avatar           : "images/android-chrome-512x512.png"
-  bio              : "Lorem ipsum College"
+  bio              : "University of Electronic Science and Technology of China"
   location         : "Chengdu, Sichuan, China"
   employer         :
   pubmed           : 
