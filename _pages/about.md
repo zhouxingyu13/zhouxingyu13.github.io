@@ -40,7 +40,6 @@ My research interest is low-level vision, such as image/video restoration, image
 
 - Focus on the heavy computational burden as well as the large memory footprint hinder the deployment of Transformer-based VSR models. With our proposed masked intra-frame and inter-frame attention block, our MIA-VSR improves the memory and computation efffciency over state-of-the-art methods, without trading off PSNR accuracy.
 
-# 
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
@@ -53,7 +52,6 @@ Kexuan Shi, **Xingyu Zhou**, Shuhang Gu
 
 - Focus on the low-frequency bias issue of vanilla multi-layer perceptron (MLP) in the Implicit Neural Representation (INR). Armed with our Fourier reparameterization method, better INR with more textures and less artifacts can be learned from the training data.  
 
-# 
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
