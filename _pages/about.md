@@ -30,7 +30,7 @@ My research interest is low-level vision, such as image/video restoration, image
 
 # 📝 Publications 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/MIAVSR-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)
@@ -43,7 +43,7 @@ My research interest is low-level vision, such as image/video restoration, image
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/structure.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Improved Implicity Neural Representation with Fourier Bases Reparameterized Training](https://arxiv.org/abs/2401.07402)
@@ -56,7 +56,7 @@ Kexuan Shi, **Xingyu Zhou**, Shuhang Gu
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)
