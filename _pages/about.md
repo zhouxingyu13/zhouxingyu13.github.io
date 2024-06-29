@@ -17,27 +17,51 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. Suspendisse condimentum, libero vel tempus mattis, risus risus vulputate libero, elementum fermentum mi neque vel nisl. Maecenas facilisis maximus dignissim. Curabitur mattis vulputate dui, tincidunt varius libero luctus eu. Mauris mauris nulla, scelerisque eget massa id, tincidunt congue felis. Sed convallis tempor ipsum rhoncus viverra. Pellentesque nulla orci, accumsan volutpat fringilla vitae, maximus sit amet tortor. Aliquam ultricies odio ut volutpat scelerisque. Donec nisl nisl, porttitor vitae pharetra quis, fringilla sed mi. Fusce pretium dolor ut aliquam consequat. Cras volutpat, tellus accumsan mattis molestie, nisl lacus tempus massa, nec malesuada tortor leo vel quam. Aliquam vel ex consectetur, vehicula leo nec, efficitur eros. Donec convallis non urna quis feugiat.
+Hi！I am a first year Master student at University of Electronic Science and Technology of China. My advisors is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
 
-My research interest includes neural machine translation and computer vision. I have published more than 100 papers at the top international AI conferences with total <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'>google scholar citations <strong><span id='total_cit'>260000+</span></strong></a> (You can also use google scholar badge <a href='https://scholar.google.com/citations?user=DhtAFkwAAAAJ'><img src="https://img.shields.io/endpoint?url={{ url | url_encode }}&logo=Google%20Scholar&labelColor=f6f6f6&color=9cf&style=flat&label=citations"></a>).
+My research interest is low-level vision, such as image/video restoration, image enhancement and so on. Specifically, I'm excited about how to build more efficient models, including training and inference, in the field of low-level vision. In addition, I believe that this will ultimately impact the development of the AI community.
 
 
 # 🔥 News
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-- *2022.02*: &nbsp;🎉🎉 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
+- *2024.03*: &nbsp;🎉🎉 Our work "[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)"(**MIA-VSR**) is accept to CVPR 2024. 
+- *2024.03*: &nbsp;🎉🎉 Our work "[Improved Implicity Neural Representation with Fourier Bases Reparameterized Training](https://arxiv.org/abs/2401.07402)"(**FR-INR**) is accept to CVPR 2024. 
+- *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accept to CVPR 2024. 
 
 # 📝 Publications 
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2016</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Deep Residual Learning for Image Recognition](https://openaccess.thecvf.com/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf)
+[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)
 
-**Kaiming He**, Xiangyu Zhang, Shaoqing Ren, Jian Sun
+**Xingyu Zhou**, Leheng Zhang, Xiaorui Zhao, Keze Wang, Leida Li, Shuhang Gu
 
-[**Project**](https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=DhtAFkwAAAAJ&citation_for_view=DhtAFkwAAAAJ:ALROH1vI_8AC) <strong><span class='show_paper_citations' data='DhtAFkwAAAAJ:ALROH1vI_8AC'></span></strong>
-- Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet. 
-</div>
-</div>
+[**arXiv**](https://arxiv.org/abs/2401.06312)/[**code**](https://github.com/LabShuHangGU/MIA-VSR)/[**bibtex**]([scholar.googleusercontent.com/scholar.bib?q=info:GDqSW8m7jnEJ:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAWHiI:AFWwaeYAAAAAZoAQBiJ54W1WSk-Xcc5obth-En0&scisig=AFWwaeYAAAAAZoAQBlqRmjmXhhx2ZZALyJezyrs&scisf=4&ct=citation&cd=-1&hl=zh-CN](https://scholar.googleusercontent.com/scholar.bib?q=info:GDqSW8m7jnEJ:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAWHiI:AFWwaeYAAAAAZoAQBiJ54W1WSk-Xcc5obth-En0&scisig=AFWwaeYAAAAAZoAQBlqRmjmXhhx2ZZALyJezyrs&scisf=4&ct=citation&cd=-1&hl=zh-CN))
 
-- [Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo dapibus sit amet](https://github.com), A, B, C, **CVPR 2020**
+- Focus on the heavy computational burden as well as the large memory footprint hinder the deployment of Transformer-based VSR models. With our proposed masked intra-frame and inter-frame attention block, our MIA-VSR improves the memory and computation efffciency over state-of-the-art methods, without trading off PSNR accuracy.
+
+# 
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Improved Implicity Neural Representation with Fourier Bases Reparameterized Training](https://arxiv.org/abs/2401.07402)
+
+Kexuan Shi, **Xingyu Zhou**, Shuhang Gu
+
+[**arXiv**](https://arxiv.org/abs/2401.07402)/[**code**](https://github.com/LabShuHangGU/FR-INR)/[**bibtex**]([scholar.googleusercontent.com/scholar.bib?q=info:cWx-xJ5bQZ4J:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAJ3hg:AFWwaeYAAAAAZoAPxhjlMTB1Z_90dZ8Q4TdIbD0&scisig=AFWwaeYAAAAAZoAPxkpJWWFG61BY0fTX70JRRl0&scisf=4&ct=citation&cd=-1&hl=zh-CN&scfhb=1](https://scholar.googleusercontent.com/scholar.bib?q=info:cWx-xJ5bQZ4J:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAJ3hg:AFWwaeYAAAAAZoAPxhjlMTB1Z_90dZ8Q4TdIbD0&scisig=AFWwaeYAAAAAZoAPxkpJWWFG61BY0fTX70JRRl0&scisf=4&ct=citation&cd=-1&hl=zh-CN&scfhb=1))
+
+- Focus on the low-frequency bias issue of vanilla multi-layer perceptron (MLP) in the Implicit Neural Representation (INR). Armed with our Fourier reparameterization method, better INR with more textures and less artifacts can be learned from the training data.  
+
+# 
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/500x300.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)
+
+Leheng Zhang, Yawei Li, **Xingyu Zhou**, Xiaorui Zhao, Shuhang Gu
+
+[**arXiv**](https://arxiv.org/abs/2401.08209)/[**code**](https://github.com/LabShuHangGU/Adaptive-Token-Dictionary)/[**bibtex**]([scholar.googleusercontent.com/scholar.bib?q=info:WlFazXa9BA8J:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAWKn0:AFWwaeYAAAAAZoAQMn1YFzmNrUuDsNz-NLV01E0&scisig=AFWwaeYAAAAAZoAQMkyIdMZnb3WhfKykBtqFL_Y&scisf=4&ct=citation&cd=-1&hl=zh-CN](https://scholar.googleusercontent.com/scholar.bib?q=info:WlFazXa9BA8J:scholar.google.com/&output=citation&scisdr=ClHYdTguEL6GoCAWKn0:AFWwaeYAAAAAZoAQMn1YFzmNrUuDsNz-NLV01E0&scisig=AFWwaeYAAAAAZoAQMkyIdMZnb3WhfKykBtqFL_Y&scisf=4&ct=citation&cd=-1&hl=zh-CN))
+
+- Focus on the limited receptive field caused by window-based self-attention in image super-resolution. With introducing a group of auxiliary adaptive token dictionary, our method achieves the best performance on various single image super-resolution benchmarks.
