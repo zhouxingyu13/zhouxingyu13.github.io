@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Hi！I am a first year Master student at University of Electronic Science and Technology of China. My advisors is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
+Hi！I am a first year Master student at University of Electronic Science and Technology of China. My advisor is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
 
 My research interest is low-level vision, such as image/video restoration, image enhancement and so on. Specifically, I'm excited about how to build more efficient models, including training and inference, in the field of low-level vision. In addition, I believe that this will ultimately impact the development of the AI community.
 
