@@ -25,7 +25,7 @@ My research interest is low-level vision, such as image/video restoration, image
 
 # 🔥 News
 - *2024.03*: &nbsp;🎉🎉 Our work "[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)"(**MIA-VSR**) is accepted to CVPR 2024. 
-- *2024.03*: &nbsp;🎉🎉 Our work "[Improved Implicity Neural Representation with Fourier Bases Reparameterized Training](https://arxiv.org/abs/2401.07402)"(**FR-INR**) is accepted to CVPR 2024. 
+- *2024.03*: &nbsp;🎉🎉 Our work "[Improved Implicit Neural Representation with Fourier Reparameterized Training](https://arxiv.org/abs/2401.07402)"(**FR-INR**) is accepted to CVPR 2024. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024. 
 
 # 📝 Publications 
@@ -46,7 +46,7 @@ My research interest is low-level vision, such as image/video restoration, image
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/structure.png' alt="sym" width="65%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Improved Implicity Neural Representation with Fourier Bases Reparameterized Training](https://arxiv.org/abs/2401.07402)
+[Improved Implicit Neural Representation with Fourier Reparameterized Training](https://arxiv.org/abs/2401.07402)
 
 Kexuan Shi, **Xingyu Zhou**, Shuhang Gu
 
