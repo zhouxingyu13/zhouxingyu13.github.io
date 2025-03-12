@@ -31,7 +31,7 @@ My research interest is low-level vision, such as image/video restoration, image
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024. 
 
 # 📝 Publications 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/PFT-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/PFT-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Progressive Focused Transformer for Single Image Super-Resolution]()
@@ -43,7 +43,7 @@ Wei Long, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/DCAE-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/DCAE-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Learned Image Compression with Dictionary-based Entropy Model]()
