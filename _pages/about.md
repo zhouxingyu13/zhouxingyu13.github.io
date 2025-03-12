@@ -24,11 +24,36 @@ My research interest is low-level vision, such as image/video restoration, image
 **If you have any suggestions for cooperation in the low-level vision, please feel free to contact me.**
 
 # 🔥 News
+- *2025.02*: &nbsp;🎉🎉 Our work "Progressive Focused Transformer for Single Image Super-Resolution"(**PFT-SR**) is accepted to CVPR 2025. 
+- *2025.02*: &nbsp;🎉🎉 Our work "Learned Image Compression with Dictionary-based Entropy Model"(**DCAE**) is accepted to CVPR 2025. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)"(**MIA-VSR**) is accepted to CVPR 2024. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Improved Implicit Neural Representation with Fourier Reparameterized Training](https://arxiv.org/abs/2401.07402)"(**FR-INR**) is accepted to CVPR 2024. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024. 
 
 # 📝 Publications 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/PFT-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Progressive Focused Transformer for Single Image Super-Resolution]()
+
+Wei Long, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
+
+[**arXiv**]()/[**code**]()/[**bibtex**]()
+
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/DCAE-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Learned Image Compression with Dictionary-based Entropy Model]()
+
+Jingbo Lu, Leheng Zhang, **Xingyu Zhou**, Mu Li, Wen Li, Shuhang Gu
+
+[**arXiv**]()/[**code**]()/[**bibtex**]()
+
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2024</div><img src='images/MIAVSR-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
