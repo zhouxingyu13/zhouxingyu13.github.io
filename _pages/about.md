@@ -24,8 +24,8 @@ My research interest is low-level vision, such as image/video restoration, image
 **If you have any suggestions for cooperation in the low-level vision, please feel free to contact me.**
 
 # 🔥 News
-- *2025.02*: &nbsp;🎉🎉 Our work "Progressive Focused Transformer for Single Image Super-Resolution"(**PFT-SR**) is accepted to CVPR 2025. 
-- *2025.02*: &nbsp;🎉🎉 Our work "Learned Image Compression with Dictionary-based Entropy Model"(**DCAE**) is accepted to CVPR 2025. 
+- *2025.02*: &nbsp;🎉🎉 Our work "[Progressive Focused Transformer for Single Image Super-Resolution]()"(**PFT-SR**) is accepted to CVPR 2025. 
+- *2025.02*: &nbsp;🎉🎉 Our work "[Learned Image Compression with Dictionary-based Entropy Model]()"(**DCAE**) is accepted to CVPR 2025. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)"(**MIA-VSR**) is accepted to CVPR 2024. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Improved Implicit Neural Representation with Fourier Reparameterized Training](https://arxiv.org/abs/2401.07402)"(**FR-INR**) is accepted to CVPR 2024. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024. 
