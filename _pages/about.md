@@ -38,6 +38,8 @@ My research interest is low-level vision, such as image/video restoration, image
 Weiyi You, Mingyang Zhang, Leheng Zhang, **Xingyu Zhou**, Kexuan Shi, Shuhang Gu
 
 [**arXiv**](https://arxiv.org/abs/2503.20349)/[**code**](https://github.com/LabShuHangGU/CTMSR)/[**bibtex**]()
+</div>
+</div>
 
 # 📝 Publications 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/PFT-arch.png' alt="sym" width="100%"></div></div>
