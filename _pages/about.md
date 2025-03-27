@@ -38,7 +38,7 @@ My research interest is low-level vision, such as image/video restoration, image
 
 Wei Long, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
 
-[**arXiv**]()/[**code**]()/[**bibtex**]()
+[**arXiv**](https://arxiv.org/abs/2503.20337)/[**code**](https://github.com/LabShuHangGU/PFT-SR)/[**bibtex**]()
 
 </div>
 </div>
