@@ -62,7 +62,7 @@ Wei Long, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
 
 Jingbo Lu, Leheng Zhang, **Xingyu Zhou**, Mu Li, Wen Li, Shuhang Gu
 
-[**arXiv**]()/[**code**]()/[**bibtex**]()
+[**arXiv**](https://arxiv.org/abs/2504.00496)/[**code**]()/[**bibtex**]()
 
 </div>
 </div>
