@@ -31,6 +31,28 @@ My research interest is low-level vision, such as image/video restoration, image
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024.
 
 # 👀 Arxiv 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/LRTI-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Small Clips, Big Gains: Learning Long-Range Refocused Temporal Information for Video Super-Resolution](https://export.arxiv.org/abs/2505.02159)
+
+**Xingyu Zhou**, Wei Long, Jingbo Lu, Shiyin Jiang, Weiyi You, Haifeng Wu, Shuhang Gu
+
+[**arXiv**](https://export.arxiv.org/abs/2505.02159)/[**code**](https://github.com/LabShuHangGU/LRTI-VSR)/[**bibtex**]()
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/HDC-arch.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Neural Stereo Video Compression with Hybrid Disparity Compensation](https://arxiv.org/abs/2504.20383)
+
+Shiyin Jiang, Zhenghao Chen, Minghao Han, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
+
+[**arXiv**](https://arxiv.org/abs/2504.20383)/[**code**](https://github.com/LabShuHangGU/HDC-SVC)/[**bibtex**]()
+</div>
+</div>
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/CTMSR-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
