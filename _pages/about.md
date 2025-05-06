@@ -104,4 +104,5 @@ Leheng Zhang, Yawei Li, **Xingyu Zhou**, Xiaorui Zhao, Shuhang Gu
 </div>
 
 # 😳 Visitor Map 
-<script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=zFnwONIG1HTctkbjLuxUSVWU0uK9-DiIuHSE3ZlgOyY"></script>
+
+<script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=250&t=n&d=zFnwONIG1HTctkbjLuxUSVWU0uK9-DiIuHSE3ZlgOyY'></script>
