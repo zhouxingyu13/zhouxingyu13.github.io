@@ -24,6 +24,7 @@ My research interest is low-level vision, such as image/video restoration, image
 **If you have any suggestions for cooperation in the low-level vision, please feel free to contact me.**
 
 # 🔥 News
+- *2025.06*: &nbsp;🎉🎉 Our work "[Consistency Trajectory Matching for One-Step Generative Super-Resolution]()"(**CTMSR**) is accepted to ICCV 2025. 
 - *2025.02*: &nbsp;🎉🎉 Our work "[Progressive Focused Transformer for Single Image Super-Resolution]()"(**PFT-SR**) is accepted to CVPR 2025. 
 - *2025.02*: &nbsp;🎉🎉 Our work "[Learned Image Compression with Dictionary-based Entropy Model]()"(**DCAE**) is accepted to CVPR 2025. 
 - *2024.03*: &nbsp;🎉🎉 Our work "[Video Super-Resolution Transformer with Masked Inter&Intra-Frame Attention](https://arxiv.org/abs/2401.06312)"(**MIA-VSR**) is accepted to CVPR 2024. 
@@ -53,7 +54,9 @@ Shiyin Jiang, Zhenghao Chen, Minghao Han, **Xingyu Zhou**, Leheng Zhang, Shuhang
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/CTMSR-arch.png' alt="sym" width="100%"></div></div>
+
+# 📝 Publications 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICCV 2025</div><img src='images/CTMSR-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Consistency Trajectory Matching for One-Step Generative Super-Resolution](https://arxiv.org/abs/2503.20349)
@@ -64,7 +67,6 @@ Weiyi You, Mingyang Zhang, Leheng Zhang, **Xingyu Zhou**, Kexuan Shi, Shuhang Gu
 </div>
 </div>
 
-# 📝 Publications 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/PFT-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
