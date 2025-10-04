@@ -17,11 +17,11 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-Hi！I am a second year Master student at University of Electronic Science and Technology of China. My advisor is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
+Hi！I am currently in my first year of pursuing a doctoral degree at University of Electronic Science and Technology of China. My advisor is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
 
-My research interest is low-level vision, such as image/video restoration, image enhancement and so on. Specifically, I'm excited about how to build more efficient models, including training and inference, in the field of low-level vision. In addition, I believe that this will ultimately impact the development of the AI community.
+My previous research interest is low-level vision, such as image/video restoration, image enhancement and so on. My current research interest lies in image or video generation. However, what remains unchanged is that I have always been excited about how to build more efficient models, including training and inference. In addition, I believe that this will ultimately impact the development of the AI community.
 
-**If you have any suggestions for cooperation in the low-level vision, please feel free to contact me.**
+**If you have any suggestions for cooperation in the low-level vision or image/video generation, please feel free to contact me.**
 
 # 🔥 News
 - *2025.06*: &nbsp;🎉🎉 Our work "[Consistency Trajectory Matching for One-Step Generative Super-Resolution]()"(**CTMSR**) is accepted to ICCV 2025. 
