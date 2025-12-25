@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="DenseDPO" />
+        <meta name="author" content="Ziyi Wu" />
+
+        <title>DenseDPO</title>
+        <!-- Bootstrap core CSS -->
+        <!--link href="bootstrap.min.css" rel="stylesheet"-->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Custom styles for this template -->
+        <link href="offcanvas.css" rel="stylesheet" />
+        <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+        <style type="text/css">
+            .container {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 900px;
+                font-size: 18px;
+            }
+            .container_img {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 1200px;
+                font-size: 18px;
+            }
+            .container_abs {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 800px;
+                font-size: 16px;
+            }
+            video {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container" align="center">
+                <h2>
+                    DenseDPO: Fine-Grained Temporal
+                </h2>
+                <h2>
+                    Preference Optimization for Video Diffusion Models
+                </h2>
+                <h4><i>NeurIPS 2025 (Spotlight)</i></h4>
+                <p>
+                    <a href="https://wuziyi616.github.io/">Ziyi Wu</a><sup>1,2,3</sup>,&nbsp;
+                    <a href="https://anilkagak2.github.io/">Anil Kag</a><sup>1</sup>,&nbsp;
+                    <a href="https://universome.github.io/">Ivan Skorokhodov</a><sup>1</sup>,&nbsp;
+                    <a href="https://www.willimenapace.com/">Willi Menapace</a><sup>1</sup>,&nbsp;
+                    <a href="https://ashmrz.github.io/">Ashkan Mirzaei</a><sup>1</sup>,&nbsp;<br />
+                    <a href="https://www.gilitschenski.org/igor/">Igor Gilitschenski</a><sup>2,3,*</sup>,&nbsp;
+                    <a href="http://www.stulyakov.com/">Sergey Tulyakov</a><sup>1,*</sup>,&nbsp;
+                    <a href="https://aliaksandrsiarohin.github.io/aliaksandr-siarohin-website/">Aliaksandr Siarohin</a><sup>1,*</sup>
+                    <br />
+                    <sup>1</sup>Snap Research&nbsp;&nbsp;
+                    <sup>2</sup>University of Toronto&nbsp;&nbsp;
+                    <sup>3</sup>Vector Institute&nbsp;&nbsp;
+                    <br />
+                    <sup>*</sup> Equal Supervision
+                </p>
+                <h5>
+                    <a href="https://arxiv.org/abs/2506.03517">[Paper]</a>&nbsp;
+                    <!-- <a href="https://github.com/">[Code]</a>&nbsp; -->
+                    <a href="https://x.com/Dazitu_616/status/1930696698080473437">[Twitter Thread]</a>
+                </h5>
+            </div>
+        </div>
+
+        <!--------------------- Teaser Video --------------------->
+        <div class="container">
+            <h3>TL;DR: </h3>
+            <p style="font-size: 20px;">
+                DenseDPO is a post-training method tailored towards video diffusion models.
+                Compared to vanilla DPO, it improves the paired data construction and the preference label granularity, leading to videos with better visual quality and motion strength using only 1/3 of the data.
+            </p>
+        </div>
+        <div class="container_img">
+            <hr />
+            <div align="center">
+                <h5>
+                    <table style="width: 100%; text-align: center">
+                        <thead>
+                        <tr>
+                            <th style="position: sticky; top: 0; width: 19%; background-color: #f2f2f2; padding: 10px;">Caption</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">Pre-trained Model</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">VanillaDPO</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;"><strong>DenseDPO (<span style="color: #ff0000;">Ours</span>)</strong></th>
+                        </tr>
+                        </thead>
+                </h5>
+                <tbody>
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A woman doing push-up exercise.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            In a studio, a popping dancer creates precise isolation movements.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A panda breakdancing in a neon-lit urban alley.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0.mp4" type="video/mp4"></video></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <!--------------------- Abstract --------------------->
+        <!-- <br />
+        <div class="container_abs">
+            <div align="center"><h2>Abstract</h2></div>
+            <hr />
+            <p>
+                Direct Preference Optimization (DPO) has recently been applied as a post-training technique for text-to-video diffusion models.
+                To obtain training data, annotators are asked to provide preferences between two videos generated from independent noise.
+                However, this approach prohibits fine-grained comparisons, and we point out that it biases the annotators towards low-motion clips as they often contain fewer visual artifacts.
+                In this work, we introduce DenseDPO, a method that addresses these shortcomings by making three contributions.
+                First, we create each video pair for DPO by denoising corrupted copies of a ground truth video.
+                This results in aligned pairs with similar motion structures while differing in local details, effectively neutralizing the motion bias.
+                Second, we leverage the resulting temporal alignment to label preferences on short segments rather than entire clips, yielding a denser and more precise learning signal.
+                With only one-third of the labeled data, DenseDPO greatly improves motion generation over vanilla DPO, while matching it in text alignment, visual quality, and temporal consistency.
+                Finally, we show that DenseDPO unlocks automatic preference annotation using off-the-shelf Vision Language Models (VLMs): GPT accurately predicts segment-level preferences similar to task-specifically fine-tuned video reward models, and DenseDPO trained on these labels achieves performance close to using human labels.
+            </p>
+        </div> -->
+
+        <!--------------------- Method --------------------->
+        <br />
+        <div class="container">
+            <div align="center"><h2>Method</h2></div>
+            <hr />
+        </div>
+        <div class="container">
+            <p align="center">
+                <img src="imgs/pipeline.png" style="width: 100%"/>
+            </p>
+        </div>
+        <div class="container">
+            <p>
+                <strong>(a)</strong> VanillaDPO compares videos generated from <strong>independent random noises</strong> and only assigns a <strong>single binary preference</strong>, biasing the annotators toward artifact-free slow-motion videos.
+                <br />
+                <strong>(b)</strong> DenseDPO generates structurally similar videos from <strong>partially noised</strong> real videos, and label <strong>segment-level dense preferences</strong> (e.g., every 1s subclip).
+            </p>
+        </div>
+
+        <!--------------------- Qualitative Results --------------------->
+        <br />
+        <div class="container">
+            <div align="center"><h2>Qualitative Results</h2></div>
+            <hr />
+            <p>
+                We show text prompts and generated videos from the pre-trained,
+                VanillaDPO aligned, and our DenseDPO aligned models.
+                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>.
+            </p>
+            <ul>
+                <li>Pre-trained model often generates deformed limbs and objects.</li>
+                <li>VanillaDPO reduces distortions, but with significantly lower dynamics.</li>
+                <li>Our DenseDPO model generates high-quality videos with correct object dynamics and realistic details.</li>
+            </ul>
+        </div>
+
+        <div class="container_img">
+            <hr />
+            <div align="center">
+                <h5>
+                    <table style="width: 100%; text-align: center">
+                        <thead>
+                        <tr>
+                            <th style="position: sticky; top: 0; width: 19%; background-color: #f2f2f2; padding: 10px;">Caption</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">Pre-trained Model</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">VanillaDPO</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;"><strong>DenseDPO (<span style="color: #ff0000;">Ours</span>)</strong></th>
+                        </tr>
+                        </thead>
+                </h5>
+                <tbody>
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A young woman dances in the night bustle against the backdrop of a glowing fanfare.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A young adult male doing a handstand on the beach.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A weightlifter performs a deadlift with perfect form in a concrete garage gym.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A man exercising with battle ropes at a gym.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A woman dancing in a gym. The woman is spinning around repeatedly.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A monkey performs a jump on a skateboard at the skate park, landing smoothly.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A giraffe stepping gingerly along a tightrope above a city plaza, drawing gasps from the crowd below.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Fingers press into a shimmering slime ball.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Close-up of a sushi chef slicing sashimi with deliberate, smooth movements.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Water poured into a glass.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A goat balancing on a large circus ball.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A bear wobbling slightly as it rides a bicycle down a forest trail, its paws gripping the seat for balance.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A raccoon rollerblading in a skate park, performing small jumps off the ramps.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6.mp4" type="video/mp4"></video></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <br />
+            <br />
+        </div>
+
+        <!--------------------- BibTeX --------------------->
+        <br /><br />
+        <div class="container" id="bibtex">
+            <div align="center"><h2>BibTeX</h2></div>
+            <hr />
+            If you find our work useful, please consider citing our paper:
+            <pre><code>
+@article{wu2025densedpo,
+  title={{DenseDPO}: Fine-Grained Temporal Preference Optimization for Video Diffusion Models},
+  author={Wu, Ziyi and Kag, Anil and Skorokhodov, Ivan and Menapace, Willi and Mirzaei, Ashkan and Gilitschenski, Igor and Tulyakov, Sergey and Siarohin, Aliaksandr},
+  journal={NeurIPS},
+  year={2025}
+}</code></pre>
+        </div>
+
+        <!--------------------- References --------------------->
+        <br /><br />
+        <div class="container">
+            <div align="center"><h2>References</h2></div>
+            <hr />
+            <p>
+                [1] Wallace, Bram, et al. "Diffusion Model Alignment Using Direct Preference Optimization." CVPR. 2024.
+                <br />
+                [2] Meng, Chenlin, et al. "SDEdit: Guided Image Synthesis and Editing with Stochastic Differential Equations." ICLR. 2022.
+            </p>
+        </div>
+
+        <br /><br /><br />
+    </body>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const opts = { root: null, threshold: 0.2 };          // 20 % visible
+  const io   = new IntersectionObserver(handle, opts);
+
+  document.querySelectorAll('video.lazyvid').forEach(v => {
+    io.observe(v);                                      // start watching
+  });
+
+  function handle(entries) {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        hydrate(v);                                     // wire up src once
+        v.play().catch(()=>{});                         // mute → autoplay OK
+      } else {
+        v.pause();
+      }
+    });
+  }
+
+  function hydrate(v) {
+    if (v.dataset.hydrated) return;                     // run once
+    v.querySelectorAll('source').forEach(s => {
+      s.src = s.dataset.src;                            // swap data-src → src
+    });
+    v.load();                                           // kick off buffering
+    v.dataset.hydrated = true;
+  }
+});
+    </script>
+</html>
