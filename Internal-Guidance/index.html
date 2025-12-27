@@ -180,14 +180,17 @@
         </div>
         <div class="container">
             <p align="center">
-                <img src="imgs/pipeline.png" style="width: 100%"/>
+                <img src="imgs/pipline.png" style="width: 100%"/>
             </p>
         </div>
         <div class="container">
             <p>
-                <strong>(a)</strong> VanillaDPO compares videos generated from <strong>independent random noises</strong> and only assigns a <strong>single binary preference</strong>, biasing the annotators toward artifact-free slow-motion videos.
+                <strong>(a)</strong> Internal Guidance (IG) is a lightweight guidance framework for Diffusion Transformers that leverages the model’s own <strong>internal dynamics</strong> to improve both generation quality and training efficiency.
+                During training, IG introduces a simple <strong>auxiliary supervision</strong> at an intermediate layer, enabling the model to produce a weaker but semantically meaningful intermediate prediction alongside the final output. This additional supervision helps stabilize optimization and alleviates gradient vanishing in deep diffusion transformers.
+                 <br />
+                <strong>(b)</strong> At inference time, IG treats the intermediate output as an internal “weaker model” and guides the final prediction by <strong>extrapolating between intermediate and final-layer outputs</strong>. This yields an <strong>autoguidance-like effect</strong> without requiring degraded models, extra training, or additional sampling steps. As a result, IG enhances sample fidelity while preserving diversity.
                 <br />
-                <strong>(b)</strong> DenseDPO generates structurally similar videos from <strong>partially noised</strong> real videos, and label <strong>segment-level dense preferences</strong> (e.g., every 1s subclip).
+                <strong>(c)</strong> IG is <strong>fully plug-and-play</strong> and can be seamlessly integrated into existing Diffusion Transformer architectures. Moreover, it is <strong>complementary to classifier-free guidance (CFG)</strong> and guidance intervals, enabling further performance gains. Extensive experiments demonstrate that IG consistently improves generation quality across model scales and backbones, achieving state-of-the-art results with minimal computational overhead.
             </p>
         </div>
 
