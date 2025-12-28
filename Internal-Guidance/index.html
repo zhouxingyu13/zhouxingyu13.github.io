@@ -201,14 +201,17 @@
             <div align="center"><h2>Discussion</h2></div>
             <hr />
             <p>
-                We show text prompts and generated videos from the pre-trained,
-                VanillaDPO aligned, and our DenseDPO aligned models.
-                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>.
+                We conduct a 2D toy example experiment similar to Autoguidance to further analyze the role of the IG we proposed.
             </p>
             <ul>
-                <li>Pre-trained model often generates deformed limbs and objects.</li>
-                <li>VanillaDPO reduces distortions, but with significantly lower dynamics.</li>
-                <li>Our DenseDPO model generates high-quality videos with correct object dynamics and realistic details.</li>
+                <li><strong>Compatibility with CFG</strong>: IG can be combined with classifier-free guidance (CFG), further improving image quality. However, we find that using a lower IG coefficient when combined with CFG yields better results than using a higher coefficient in isolation. This synergy between IG and CFG significantly reduces outliers while maintaining diversity.</li>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/pipline.png" style="width: 80%"/>
+                </p>
+                </div>
+                <li><strong>Guidance Interval</strong>: The introduction of a guidance interval allows IG to be applied selectively at certain noise levels. This enhances its effectiveness, particularly in high-noise ranges, while avoiding over-simplification of the generated samples.</li>
+                <li><strong>Training Acceleration</strong>: By incorporating IG into the training process, we can accelerate convergence. In experiments, the IG-based training loss has been shown to outperform traditional methods, demonstrating faster convergence with comparable or better generation quality.</li>
             </ul>
         </div>
 
