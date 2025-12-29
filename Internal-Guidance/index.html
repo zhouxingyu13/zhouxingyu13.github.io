@@ -205,6 +205,7 @@
             </p>
             <ul>
                 <li><strong>Compatibility with CFG</strong>: IG can be combined with classifier-free guidance (CFG), further improving image quality. This synergy between IG and CFG significantly reduces outliers while maintaining diversity.</li>
+            <ul>
                 <div class="container">
                 <p align="center">
                 <img src="imgs/2dtoy1.png" style="width: 100%"/>
@@ -215,18 +216,23 @@
                 <img src="imgs/combine.png" style="width: 80%"/>
                 </p>
                 </div> -->
+            <ul>
                 <li><strong>Guidance Interval</strong>: The introduction of a guidance interval allows IG to be applied selectively at certain noise levels. This enhances its effectiveness, particularly in high-noise ranges, while avoiding over-simplification of the generated samples.</li>
                 <div class="container">
                 <p align="center">
                 <img src="imgs/interval.png" style="width: 60%"/>
                 </p>
                 </div>
+            <ul>
+            <ul>
                 <li><strong>Training Acceleration</strong>: By incorporating IG into the training process, we can accelerate convergence. In experiments, the IG-based training loss has been shown to outperform REPA, demonstrating faster convergence with comparable or better generation quality.</li>
                 <div class="container">
                 <p align="center">
                 <img src="imgs/trainingloss.png" style="width: 60%"/>
                 </p>
                 </div>
+            <ul>
+            <ul>
                 <div class="container">
                 <p align="center">
                 <img src="imgs/2dtoy2.png" style="width: 100%"/>
@@ -243,9 +249,10 @@
             <div align="center"><h2>Experimental Results</h2></div>
             <hr />
             <p>
-                We show text prompts and generated videos from the pre-trained,
+                We demonstrate the effectiveness of the IG that we have proposed.
+                <!-- We show text prompts and generated videos from the pre-trained,
                 VanillaDPO aligned, and our DenseDPO aligned models.
-                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>.
+                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>. -->
             </p>
             <ul>
                 <li>Pre-trained model often generates deformed limbs and objects.</li>
