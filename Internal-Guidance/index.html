@@ -232,13 +232,11 @@
                 </p>
                 </div>
             </ul>
-            <ul>
                 <div class="container">
                 <p align="center">
                 <img src="imgs/2dtoy2.png" style="width: 100%"/>
                 </p>
                 </div>
-            </ul>
         </div>
 
 
@@ -255,10 +253,40 @@
                 For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>. -->
             </p>
             <ul>
-                <li>Pre-trained model often generates deformed limbs and objects.</li>
-                <li>VanillaDPO reduces distortions, but with significantly lower dynamics.</li>
-                <li>Our DenseDPO model generates high-quality videos with correct object dynamics and realistic details.</li>
+                <li>Just adding an auxiliary supervision achieves a similar effect as that incorporates self-supervised representation learning as regularization.</li>
             </ul>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy2.png" style="width: 100%"/>
+                </p>
+                </div>
+            <ul>
+                <li>IG shows benifit on different baselines across different model size.</li>
+            </ul>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy2.png" style="width: 100%"/>
+                </p>
+                </div>
+            <ul>
+                <li>IG shows superior performance against all of other methods and can be combined with the methods that utilize pre-trained self-supervised representation models.</li>
+            </ul>
+            <p>
+                FID-50K comparison under random class sampling.
+            </p>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy2.png" style="width: 100%"/>
+                </p>
+                </div>
+            <p>
+                FID-50K comparison under uniform class sampling.
+            </p>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy2.png" style="width: 100%"/>
+                </p>
+                </div>
         </div>
         <!--------------------- Qualitative Results --------------------->
         <!-- <br />
