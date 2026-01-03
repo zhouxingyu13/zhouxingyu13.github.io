@@ -32,6 +32,18 @@ My previous research interest is low-level vision, such as image/video restorati
 - *2024.03*: &nbsp;🎉🎉 Our work "[Transcending the Limit of Local Window: Advanced Super-Resolution Transformer with Adaptive Token Dictionary](https://arxiv.org/abs/2401.08209)"(**ATD-SR**) is accepted to CVPR 2024.
 
 # 👀 Arxiv 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='Internal-Guidance/imgs/visual.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Guiding a Diffusion Transformer with the Internal Dynamics of Itself](https://arxiv.org/abs/2504.20383)
+
+**Xingyu Zhou**, Qifan Li, Xiaobin Hu, Hai Chen, Shuhang Gu
+
+[**arXiv**](https://arxiv.org/abs/2512.24176v1)/[**code**](https://github.com/CVL-UESTC/Internal-Guidance)/[**bibtex**]()
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/LRTI-arch.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
@@ -43,16 +55,6 @@ My previous research interest is low-level vision, such as image/video restorati
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='images/HDC-arch.png' alt="sym" width="100%"></div></div>
-<div class='paper-box-text' markdown="1">
-
-[Neural Stereo Video Compression with Hybrid Disparity Compensation](https://arxiv.org/abs/2504.20383)
-
-Shiyin Jiang, Zhenghao Chen, Minghao Han, **Xingyu Zhou**, Leheng Zhang, Shuhang Gu
-
-[**arXiv**](https://arxiv.org/abs/2504.20383)/[**code**](https://github.com/LabShuHangGU/HDC-SVC)/[**bibtex**]()
-</div>
-</div>
 
 
 # 📝 Publications 
