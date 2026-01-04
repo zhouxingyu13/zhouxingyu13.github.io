@@ -35,7 +35,7 @@ My previous research interest is low-level vision, such as image/video restorati
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge"></div><img src='Internal-Guidance/imgs/visual.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[Guiding a Diffusion Transformer with the Internal Dynamics of Itself](https://arxiv.org/abs/2504.20383)
+[Guiding a Diffusion Transformer with the Internal Dynamics of Itself](https://arxiv.org/abs/2512.24176v1)
 
 **Xingyu Zhou**, Qifan Li, Xiaobin Hu, Hai Chen, Shuhang Gu
 
