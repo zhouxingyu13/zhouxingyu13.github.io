@@ -24,6 +24,8 @@
                 </p>
                 <p>
 		I am currently in my first year of pursuing a doctoral degree at University of Electronic Science and Technology of China. My advisor is <a href='https://scholar.google.com/citations?user=-kSTt40AAAAJ&hl=zh-CN'>Shuhang Gu</a>. I received the B.S. degree from the Artificial Intelligence School, Xidian University in 2023.  
+		</p>
+		<p>	  
 		My previous research interest is low-level vision, such as image/video restoration, image enhancement and so on. My current research interest lies in image or video generation. However, what remains unchanged is that I have always been excited about how to build more efficient models, including training and inference. In addition, I believe that this will ultimately impact the development of the AI community.
                 </p>
                 <p style="text-align:center">
@@ -42,17 +44,118 @@
           </tbody></table>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
               <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Research</h2>
-                <p>
-                  I'm interested in computer vision, deep learning, generative AI, and image processing. Most of my research is about inferring the physical world (shape, motion, color, light, etc) from images, usually with radiance fields. Some papers are <span class="highlight">highlighted</span>.
+              <td style="padding:20px;width:100%;vertical-align:middle">
+                <h2>News</h2>
+				<p>
+                  [2026-01] One paper <a href="https://arxiv.org/abs/2509.23774"> TVQ&RAP</a> is accepted to ICLR 2026.
                 </p>
+				<p>
+                  [2025-06] One paper <a href="https://arxiv.org/abs/2503.20349"> CTMSR</a> is accepted to ICCV 2025.
+                </p>
+                <p>
+                  [2025-02] Two papers <a href="https://arxiv.org/abs/2503.20337"> PFT-SR</a> and <a href="https://arxiv.org/abs/2504.00496"> DCAE</a> are accepted to CVPR 2025.
+                </p>
+                <p>
+                  [2024-03] Three papers <a href="https://arxiv.org/abs/2401.06312"> MIA-VSR</a>, <a href="https://arxiv.org/abs/2401.08209"> ATD-SR</a> and <a href="https://arxiv.org/abs/2401.07402"> FR-INR</a> are accepted to CVPR 2024.
               </td>
             </tr>
           </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+		 <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+              <tr>
+              <td style="padding:20px;width:100%;vertical-align:middle">
+                <h2>Selected Publications</h2>
+              </td>
+            </tr>
+          </tbody></table>
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+<tr onmouseout="ig_stop()" onmouseover="ig_start()" bgcolor="#ffffd0">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='IG_image'>
+        <img src='images/radmesh_after.jpg' width=100%>
+      </div>
+      <img src='images/radmesh_before.jpg' width=100%>
+    </div>
+    <script type="text/javascript">
+      function ig_start() {
+        document.getElementById('IG_image').style.opacity = "1";
+      }
+
+      function ig_stop() {
+        document.getElementById('IG_image').style.opacity = "0";
+      }
+      radmesh_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://half-potato.gitlab.io/rm/">
+      <span class="papertitle">Radiance Meshes for Volumetric Reconstruction</span>
+    </a>
+    <br>
+    <strong>Xingyu Zhou</strong>,
+    <a href="https://github.com/Shmaug">Qifan Li</a>,
+    <a href="https://grgkopanas.github.io/">Xiaobin Hu</a>, <br>
+	<a href="https://mediatech.aalto.fi/~janne/index.php">Hai Chen</a>, 
+    <a href="https://jacobsschool.ucsd.edu/faculty/profile?id=253">Shuhang Gu</a>
+    <br>
+    <em>arXiv</em>, 2025
+    <br>
+    <a href="https://half-potato.gitlab.io/rm/">project page</a>
+    /
+    <a href="https://arxiv.org/abs/2512.24176">arXiv</a>
+	/
+	<a href="https://github.com/CVL-UESTC/Internal-Guidance">code</a>
+    <p></p>
+    <p>
+	Parameterizing a scene with a Delaunay tetrahedralization and a neural field yields a scene representation that is accurate, fast to render, easy to edit, and backwards-compatible.
+    </p>
+  </td>
+</tr>
 
 <tr onmouseout="radmesh_stop()" onmouseover="radmesh_start()" bgcolor="#ffffd0">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='radmesh_image'>
+        <img src='images/radmesh_after.jpg' width=100%>
+      </div>
+      <img src='images/radmesh_before.jpg' width=100%>
+    </div>
+    <script type="text/javascript">
+      function radmesh_start() {
+        document.getElementById('radmesh_image').style.opacity = "1";
+      }
+
+      function radmesh_stop() {
+        document.getElementById('radmesh_image').style.opacity = "0";
+      }
+      radmesh_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://half-potato.gitlab.io/rm/">
+      <span class="papertitle">LRTI-VSR: Learning Long-Range Refocused Temporal Information for Video Super-Resolution</span>
+    </a>
+    <br>
+    <a href="https://half-potato.gitlab.io/">Alexander Mai</a>,
+    <a href="https://github.com/Shmaug">Trevor Hedstrom</a>,
+    <a href="https://grgkopanas.github.io/">George Kopanas</a>, <br>
+	<a href="https://mediatech.aalto.fi/~janne/index.php">Janne Kontkanen</a>, 
+    <a href="https://jacobsschool.ucsd.edu/faculty/profile?id=253">Falko Kuester</a>,
+    <strong>Jonathan T. Barron</strong>
+    <br>
+    <em>arXiv</em>, 2025
+    <br>
+    <a href="https://arxiv.org/abs/2512.04076">arXiv</a>
+	/
+	<a href="https://github.com/CaradryanLiang/ImprovedAdvDM">code</a>
+    <p></p>
+    <p>
+	Parameterizing a scene with a Delaunay tetrahedralization and a neural field yields a scene representation that is accurate, fast to render, easy to edit, and backwards-compatible.
+    </p>
+  </td>
+</tr>
+
+ <tr onmouseout="radmesh_stop()" onmouseover="radmesh_start()" bgcolor="#ffffd0">
   <td style="padding:16px;width:20%;vertical-align:middle">
     <div class="one">
       <div class="two" id='radmesh_image'>
@@ -85,9 +188,9 @@
     <br>
     <em>arXiv</em>, 2025
     <br>
-    <a href="https://half-potato.gitlab.io/rm/">project page</a>
-    /
     <a href="https://arxiv.org/abs/2512.04076">arXiv</a>
+	/
+	<a href="https://github.com/CaradryanLiang/ImprovedAdvDM">code</a>
     <p></p>
     <p>
 	Parameterizing a scene with a Delaunay tetrahedralization and a neural field yields a scene representation that is accurate, fast to render, easy to edit, and backwards-compatible.
@@ -95,7 +198,7 @@
   </td>
 </tr>
 
-<tr onmouseout="nexf_stop()" onmouseover="nexf_start()">
+<!-- <tr onmouseout="nexf_stop()" onmouseover="nexf_start()">
       <td style="padding:16px;width:20%;vertical-align:middle">
         <div class="one">
           <div class="two" id='nexf_image'>
@@ -4409,10 +4512,10 @@ for Topologically Varying Neural Radiance Fields</span>
               </td>
             </tr>
 
-          </tbody></table>
+          </tbody></table> -->
 
           
-					<table style="width:100%; margin:0 auto; border:0; border-spacing:0; padding:16px;"><tbody>
+					<!-- <table style="width:100%; margin:0 auto; border:0; border-spacing:0; padding:16px;"><tbody>
             <tr>
               <td>
                 <h2>Miscellanea</h2>
@@ -4499,7 +4602,7 @@ for Topologically Varying Neural Radiance Fields</span>
               </td>
             </tr>
             
-          </tbody></table>
+          </tbody></table> -->
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
               <td style="padding:0px">
