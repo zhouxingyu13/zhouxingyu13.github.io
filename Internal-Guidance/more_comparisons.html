@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="DenseDPO" />
+        <meta name="author" content="anonymous" />
+
+        <title>DenseDPO</title>
+        <!-- Bootstrap core CSS -->
+        <!--link href="bootstrap.min.css" rel="stylesheet"-->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Custom styles for this template -->
+        <link href="offcanvas.css" rel="stylesheet" />
+        <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+        <style type="text/css">
+            .container {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 900px;
+                font-size: 18px;
+            }
+            .container_img {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 1600px;
+                font-size: 18px;
+            }
+            video {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container" align="center">
+                <h2>
+                    DenseDPO: Fine-Grained Temporal
+                </h2>
+                <h2>
+                    Preference Optimization for Video Diffusion Models
+                </h2>
+            </div>
+        </div>
+
+        <!--------------------- Qualitative Results --------------------->
+        <div class="container">
+            <div align="center"><h2>Qualitative Results</h2></div>
+            <hr />
+            <p>
+                We show text prompts and generated videos from the pre-trained,
+                Supervised Fine-Tuned (SFT), VanillaDPO, StructuralDPO,
+                and our DenseDPO aligned models.
+                <br />
+                [<a href="index.html">Back to main page</a>]
+            </p>
+            <ul>
+                <li>Pre-trained model often generates deformed limbs and objects.</li>
+                <li>SFT leads to almost no change in the results.</li>
+                <li>VanillaDPO reduces distortions, but with significantly lower dynamics.</li>
+                <li>StructuralDPO improves the dynamics, but degrades the visual quality and reintroduces some artifacts.</li>
+                <li>Our DenseDPO model generates high-quality videos with correct object dynamics and realistic details.</li>
+            </ul>
+            <br />
+        </div>
+
+        <div class="container_img">
+            <hr />
+            <div align="center">
+                <h5>
+                    <table style="width: 100%; text-align: center">
+                        <tr>
+                            <th style="position: sticky; top: 0; width: 10%; background-color: #f2f2f2; padding: 10px;">Caption</th>
+                            <th style="position: sticky; top: 0; width: 18%; background-color: #f2f2f2; padding: 10px;">Pre-trained</th>
+                            <th style="position: sticky; top: 0; width: 18%; background-color: #f2f2f2; padding: 10px;">SFT</th>
+                            <th style="position: sticky; top: 0; width: 18%; background-color: #f2f2f2; padding: 10px;">VanillaDPO</th>
+                            <th style="position: sticky; top: 0; width: 18%; background-color: #f2f2f2; padding: 10px;">StructuralDPO</th>
+                            <th style="position: sticky; top: 0; width: 18%; background-color: #f2f2f2; padding: 10px;"><strong>DenseDPO (<span style="color: #ff0000;">Ours</span>)</strong></th>
+                        </tr>
+                </h5>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A young woman dances in the night bustle against the backdrop of a glowing fanfare.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            In a studio, a popping dancer creates precise isolation movements.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman doing push-up exercise.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A young adult male doing a handstand on the beach.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A weightlifter performs a deadlift with perfect form in a concrete garage gym.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A man exercising with battle ropes at a gym.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            At the edge of a roaring waterfall, a boxer practices jabs and hooks on a punching bag, sweat dripping as he refines his technique.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00026-31-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00026-31-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00026-31-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00026-31-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00026-31.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman dancing in a gym. The woman is spinning around repeatedly.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A man doing push-ups on a ledge overlooking a body of water. The man appears to be doing a push-up, with his head down.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00068-2-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00068-2-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00068-2-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00068-2-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00068-2.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman doing push-up exercise on a beach at sunset.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00070-2-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00070-2-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00070-2-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00070-2-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00070-2.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A panda breakdancing in a neon-lit urban alley.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A monkey performs a jump on a skateboard at the skate park, landing smoothly.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A giraffe stepping gingerly along a tightrope above a city plaza, drawing gasps from the crowd below.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            Fingers press into a shimmering slime ball.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            Close-up of a sushi chef slicing sashimi with deliberate, smooth movements.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A slow-motion close-up of a chef slicing a tomato.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00016-21-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00016-21-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00016-21-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00016-21-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00016-21.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            An arc shot captures a figure skater gliding gracefully across the ice in slow motion.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00034-50-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00034-50-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00034-50-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00034-50-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00034-50.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A dancer twirls gracefully on a confetti-strewn stage as the sun sets.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00035-59-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00035-59-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00035-59-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00035-59-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00035-59.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A skateboarder performs jumps.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00000-4-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00000-4-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00000-4-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00000-4-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00000-4.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            On a rainy rooftop, a pair of hip-hop dancers lock and pop in perfect sync.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00004-4-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00004-4-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00004-4-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00004-4-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00004-4.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman transitions gracefully on an aerial hoop under golden hour light.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00005-3-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00005-3-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00005-3-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00005-3-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00005-3.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman doing a headstand on the beach.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00006-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00006-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00006-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00006-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00006-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A snowboarder navigates a snow-covered mountain trail, dodging tall pine trees. They leap off a small hill, executing a mid-air spin before landing gracefully and continuing their descent.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00009-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00009-6-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00009-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00009-6-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00009-6.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A vase smashing on a wooden floor in a quiet antique shop.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00013-16-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00013-16-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00013-16-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00013-16-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00013-16.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            On the deck of a drifting ship, two robots are performing push-ups.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00018-24-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00018-24-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00018-24-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00018-24-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00018-24.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            Two otters hold hands as they spin in a playful circle on a calm river surface.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00019-23-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00019-23-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00019-23-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00019-23-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00019-23.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A person jogs along a city waterfront.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00020-24-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00020-24-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00020-24-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00020-24-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00020-24.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A goat balancing on a spinning ball on a mountaintop.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00021-29-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00021-29-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00021-29-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00021-29-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00021-29.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            Water poured into a glass.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A woman engaging in a challenging workout routine, performing pull-ups on green bars.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00029-44-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00029-44-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00029-44-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00029-44-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00029-44.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A goat balancing on a large circus ball.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A bear wobbling slightly as it rides a bicycle down a forest trail, its paws gripping the seat for balance.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A raccoon rollerblading in a skate park, performing small jumps off the ramps.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A man enjoying a leisurely bike ride along a road next to a body of water during a sunset.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00036-59-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00036-59-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00036-59-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00036-59-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00036-59.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A penguin slides down a snowy hill on its belly, cheering with tiny flippers in the air.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00043-1-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00043-1-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00043-1-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00043-1-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00043-1.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            A raccoon riding a massive wave with style.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00077-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00077-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00077-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00077-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00077-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%" align="left">
+                        <p>
+                            Slow motion of a water drop crown formation.
+                        </p>
+                    </td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00078-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00078-0-sft.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00078-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00078-0-structuraldpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 18%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00078-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+            </table>
+            </div>
+            <br />
+            <br />
+        </div>
+        <br /><br /><br />
+    </body>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const opts = { root: null, threshold: 0.2 };          // 20 % visible
+  const io   = new IntersectionObserver(handle, opts);
+
+  document.querySelectorAll('video.lazyvid').forEach(v => {
+    io.observe(v);                                      // start watching
+  });
+
+  function handle(entries) {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        hydrate(v);                                     // wire up src once
+        v.play().catch(()=>{});                         // mute → autoplay OK
+      } else {
+        v.pause();
+      }
+    });
+  }
+
+  function hydrate(v) {
+    if (v.dataset.hydrated) return;                     // run once
+    v.querySelectorAll('source').forEach(s => {
+      s.src = s.dataset.src;                            // swap data-src → src
+    });
+    v.load();                                           // kick off buffering
+    v.dataset.hydrated = true;
+  }
+});
+    </script>
+</html>

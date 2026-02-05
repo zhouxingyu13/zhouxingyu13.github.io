@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content="Internal Guidance" />
+        <meta name="author" content="Xingyu Zhou" />
+
+        <title>Internal-Guidance</title>
+        <!-- Bootstrap core CSS -->
+        <!--link href="bootstrap.min.css" rel="stylesheet"-->
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+        />
+
+        <!-- Custom styles for this template -->
+        <link href="offcanvas.css" rel="stylesheet" />
+        <!--    <link rel="icon" href="img/favicon.gif" type="image/gif">-->
+        <style type="text/css">
+            .container {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 900px;
+                font-size: 18px;
+            }
+            .container_img {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 1200px;
+                font-size: 18px;
+            }
+            .container_abs {
+                zoom: 1;
+                margin-left: auto;
+                margin-right: auto;
+                vertical-align: middle;
+                width: 100%;
+                max-width: 800px;
+                font-size: 16px;
+            }
+            video {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container" align="center">
+                <h2>
+                    Guiding a Diffusion Transformer
+                </h2>
+                <h2>
+                    with the Internal Dynamics of Itself
+                </h2>
+                <h4><i>Under Review</i></h4>
+                <p>
+                    <a href="https://zhouxingyu13.github.io/">Xingyu Zhou</a><sup>1</sup>,&nbsp;
+                    <a href="https://scholar.google.com/citations?user=1ssHRA8AAAAJ&hl=zh-CN">Qifan Li</a><sup>1</sup>,&nbsp;
+                    <a href="https://huuxiaobin.github.io/">Xiaobin Hu</a><sup>2</sup>,&nbsp;
+                    <a href="https://openreview.net/profile?id=%7EHai_Chen3">Hai Chen</a><sup>3,4</sup>,&nbsp;
+                    <a href="https://shuhanggu.github.io/">Shuhang Gu</a><sup>1,*</sup>
+                    <br />
+                    <sup>1</sup>University of Electronic Science and Technology of China&nbsp;&nbsp;
+                    <sup>2</sup>National University of Singapore&nbsp;&nbsp;
+                    <br />
+                    <sup>3</sup>Sun Yat-sen University&nbsp;&nbsp;
+                    <sup>4</sup>North China Institute of Computer Systems Engineering&nbsp;&nbsp;
+                    <br />
+                    <sup>*</sup>Corresponding Author
+                </p>
+                <h5>
+                    <a href="https://arxiv.org/abs/2512.24176v1">[Paper]</a>&nbsp;
+                    <a href="https://github.com/CVL-UESTC/Internal-Guidance">[Code]</a>&nbsp;
+                    <!-- <a href="https://github.com/">[Code]</a>&nbsp; -->
+                    <a href="https://huggingface.co/CVLUESTC/Internal-Guidance">[HuggingFace]</a>
+                </h5>
+            </div>
+        </div>
+
+        <!--------------------- Teaser Video --------------------->
+        <div class="container">
+            <h3>TL;DR: </h3>
+            <p style="font-size: 20px;">
+                🔥 <strong>New SOTA on 256 &times; 256 ImageNet generation.</strong>
+                We present <strong>Internal Guidance (IG)</strong>, a simple yet powerful guidance mechanism for Diffusion Transformers. LightningDiT-XL/1 + IG sets a new state of the art with <strong>FID = 1.07</strong> on ImageNet, while achieving FID = 1.24 without classifier-free guidance. IG delivers dramatic quality gains with far fewer training epochs, adds negligible overhead, and works as a drop-in upgrade for modern diffusion transformers.
+            </p>
+        </div>
+        <div class="container">
+            <p align="center">
+                <img src="imgs/visual.png" style="width: 100%"/>
+            </p>
+        </div>
+        <!-- <div class="container_img">
+            <hr />
+            <div align="center">
+                <h5>
+                    <table style="width: 100%; text-align: center">
+                        <thead>
+                        <tr>
+                            <th style="position: sticky; top: 0; width: 19%; background-color: #f2f2f2; padding: 10px;">Caption</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">Pre-trained Model</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">VanillaDPO</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;"><strong>DenseDPO (<span style="color: #ff0000;">Ours</span>)</strong></th>
+                        </tr>
+                        </thead>
+                </h5>
+                <tbody>
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A woman doing push-up exercise.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00031-45.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            In a studio, a popping dancer creates precise isolation movements.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00012-15.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A panda breakdancing in a neon-lit urban alley.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00076-0.mp4" type="video/mp4"></video></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div> -->
+
+        <!--------------------- Abstract --------------------->
+        <!-- <br />
+        <div class="container_abs">
+            <div align="center"><h2>Abstract</h2></div>
+            <hr />
+            <p>
+                Direct Preference Optimization (DPO) has recently been applied as a post-training technique for text-to-video diffusion models.
+                To obtain training data, annotators are asked to provide preferences between two videos generated from independent noise.
+                However, this approach prohibits fine-grained comparisons, and we point out that it biases the annotators towards low-motion clips as they often contain fewer visual artifacts.
+                In this work, we introduce DenseDPO, a method that addresses these shortcomings by making three contributions.
+                First, we create each video pair for DPO by denoising corrupted copies of a ground truth video.
+                This results in aligned pairs with similar motion structures while differing in local details, effectively neutralizing the motion bias.
+                Second, we leverage the resulting temporal alignment to label preferences on short segments rather than entire clips, yielding a denser and more precise learning signal.
+                With only one-third of the labeled data, DenseDPO greatly improves motion generation over vanilla DPO, while matching it in text alignment, visual quality, and temporal consistency.
+                Finally, we show that DenseDPO unlocks automatic preference annotation using off-the-shelf Vision Language Models (VLMs): GPT accurately predicts segment-level preferences similar to task-specifically fine-tuned video reward models, and DenseDPO trained on these labels achieves performance close to using human labels.
+            </p>
+        </div> -->
+
+        <!--------------------- Method --------------------->
+        <br />
+        <div class="container">
+            <div align="center"><h2>Method</h2></div>
+            <hr />
+        </div>
+        <div class="container">
+            <p align="center">
+                <img src="imgs/pipline.png" style="width: 80%"/>
+            </p>
+        </div>
+        <div class="container">
+            <p>
+                <strong>(a)</strong> Internal Guidance (IG) is a lightweight guidance framework for Diffusion Transformers that leverages the model’s own <strong>internal dynamics</strong> to improve both generation quality and training efficiency.
+                During training, IG introduces a simple <strong>auxiliary supervision</strong> at an intermediate layer, enabling the model to produce a weaker but semantically meaningful intermediate prediction alongside the final output. This additional supervision helps stabilize optimization and alleviates gradient vanishing in deep diffusion transformers.
+                 <br />
+                <strong>(b)</strong> At inference time, IG treats the intermediate output as an internal “weaker model” and guides the final prediction by <strong>extrapolating between intermediate and final-layer outputs</strong>. This yields an <strong>autoguidance-like effect</strong> without requiring degraded models, extra training, or additional sampling steps. As a result, IG enhances sample fidelity while preserving diversity.
+                <br />
+                <strong>(c)</strong> IG is <strong>fully plug-and-play</strong> and can be seamlessly integrated into existing Diffusion Transformer architectures. Moreover, it is <strong>complementary to classifier-free guidance (CFG)</strong> and guidance intervals, enabling further performance gains. Extensive experiments demonstrate that IG consistently improves generation quality across model scales and backbones, achieving state-of-the-art results with minimal computational overhead.
+            </p>
+        </div>
+
+
+
+        <br />
+        <div class="container">
+            <div align="center"><h2>Discussion</h2></div>
+            <hr />
+            <p>
+                We conduct a 2D toy example experiment similar to Autoguidance to further analyze the role of the IG.
+            </p>
+            <ul>
+                <li><strong>Compatibility with CFG</strong>: IG can be combined with classifier-free guidance (CFG), further improving image quality. This synergy between IG and CFG significantly reduces outliers while maintaining diversity.</li>
+            </ul>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy1.png" style="width: 100%"/>
+                </p>
+                <!-- </div>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/combine.png" style="width: 80%"/>
+                </p>
+                </div> -->
+            <ul>
+                <li><strong>Guidance Interval</strong>: The introduction of a guidance interval allows IG to be applied selectively at certain noise levels. This enhances its effectiveness, particularly in high-noise ranges, while avoiding over-simplification of the generated samples.</li>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/interval.png" style="width: 60%"/>
+                </p>
+                </div>
+            </ul>
+            <ul>
+                <li><strong>Training Acceleration</strong>: By incorporating IG into the training process, we can also <strong>accelerate convergence</strong>. In experiments on SiT-B/2, the IG-based training loss has been shown to outperform REPA, demonstrating faster convergence with comparable or better generation quality.</li>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/trainingloss.png" style="width: 60%"/>
+                </p>
+                </div>
+            </ul>
+                <div class="container">
+                <p align="center">
+                <img src="imgs/2dtoy2.png" style="width: 100%"/>
+                </p>
+                </div>
+        </div>
+
+
+
+
+        <br />
+        <div class="container">
+            <div align="center"><h2>Experimental Results</h2></div>
+            <hr />
+            <p>
+                We demonstrate the effectiveness of the IG that we have proposed.
+                <!-- We show text prompts and generated videos from the pre-trained,
+                VanillaDPO aligned, and our DenseDPO aligned models.
+                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>. -->
+            </p>
+            <ul>
+                <li><strong>Just adding an auxiliary supervision (without IG sampling)</strong> achieves a similar effect as that incorporates self-supervised representation learning as regularization.</li>
+            </ul>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/supervision.png" style="width: 60%"/>
+                </p>
+                </div>
+            <ul>
+                <li><strong>IG shows benifit on different baselines across different model size.</strong></li>
+            </ul>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/scale.png" style="width: 60%"/>
+                </p>
+                </div>
+            <ul>
+                <li><strong>IG shows superior performance against all of other methods</strong> and can be combined with the methods that utilize pre-trained self-supervised representation models.</li>
+            </ul>
+            <p>
+                <strong>FID-50K comparison under random class sampling.</strong>
+            </p>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/randomsota.png" style="width: 100%"/>
+                </p>
+                </div>
+            <p>
+                <strong>FID-50K comparison under uniform class sampling.</strong>
+            </p>
+            <div class="container">
+                <p align="center">
+                <img src="imgs/unisota.png" style="width: 100%"/>
+                </p>
+                </div>
+            <ul>
+                <li><strong>The combination of IG and CFG can further enhance the quality of image generation.</strong></li>
+            </ul>
+            </div>
+            <div class="container">
+            <p align="center">
+            <img src="imgs/combine.png" style="width: 60%"/>
+            </p>
+            </div>
+        </div>
+        <!--------------------- Qualitative Results --------------------->
+        <!-- <br />
+        <div class="container">
+            <div align="center"><h2>Qualitative Results</h2></div>
+            <hr />
+            <p>
+                We show text prompts and generated videos from the pre-trained,
+                VanillaDPO aligned, and our DenseDPO aligned models.
+                For more results and comparison with SFT and StructuralDPO, see <a href="more_comparisons.html">here</a>.
+            </p>
+            <ul>
+                <li>Pre-trained model often generates deformed limbs and objects.</li>
+                <li>VanillaDPO reduces distortions, but with significantly lower dynamics.</li>
+                <li>Our DenseDPO model generates high-quality videos with correct object dynamics and realistic details.</li>
+            </ul>
+        </div>
+
+        <div class="container_img">
+            <hr />
+            <div align="center">
+                <h5>
+                    <table style="width: 100%; text-align: center">
+                        <thead>
+                        <tr>
+                            <th style="position: sticky; top: 0; width: 19%; background-color: #f2f2f2; padding: 10px;">Caption</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">Pre-trained Model</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;">VanillaDPO</th>
+                            <th style="position: sticky; top: 0; width: 27%; background-color: #f2f2f2; padding: 10px;"><strong>DenseDPO (<span style="color: #ff0000;">Ours</span>)</strong></th>
+                        </tr>
+                        </thead>
+                </h5>
+                <tbody>
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A young woman dances in the night bustle against the backdrop of a glowing fanfare.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00057-1.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A young adult male doing a handstand on the beach.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00053-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A weightlifter performs a deadlift with perfect form in a concrete garage gym.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00044-2.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A man exercising with battle ropes at a gym.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00056-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A woman dancing in a gym. The woman is spinning around repeatedly.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00060-0.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A monkey performs a jump on a skateboard at the skate park, landing smoothly.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00007-5.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A giraffe stepping gingerly along a tightrope above a city plaza, drawing gasps from the crowd below.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00008-6.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Fingers press into a shimmering slime ball.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00011-10.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Close-up of a sushi chef slicing sashimi with deliberate, smooth movements.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00025-31.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            Water poured into a glass.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00022-25.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A goat balancing on a large circus ball.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00040-64.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A bear wobbling slightly as it rides a bicycle down a forest trail, its paws gripping the seat for balance.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00041-60.mp4" type="video/mp4"></video></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 19%" align="left">
+                        <p>
+                            A raccoon rollerblading in a skate park, performing small jumps off the ramps.
+                        </p>
+                    </td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-base.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6-vanilladpo.mp4" type="video/mp4"></video></td>
+                    <td style="width: 27%"><video class="lazyvid" width="100%" playsinline muted controls loop preload="none" poster="thumb.jpg"><source data-src="videos/00047-6.mp4" type="video/mp4"></video></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <br />
+            <br />
+        </div> -->
+
+        <!--------------------- BibTeX --------------------->
+        <!-- <br /><br />
+        <div class="container" id="bibtex">
+            <div align="center"><h2>BibTeX</h2></div>
+            <hr />
+            If you find our work useful, please consider citing our paper:
+            <pre><code>
+@article{wu2025densedpo,
+  title={{DenseDPO}: Fine-Grained Temporal Preference Optimization for Video Diffusion Models},
+  author={Wu, Ziyi and Kag, Anil and Skorokhodov, Ivan and Menapace, Willi and Mirzaei, Ashkan and Gilitschenski, Igor and Tulyakov, Sergey and Siarohin, Aliaksandr},
+  journal={NeurIPS},
+  year={2025}
+}</code></pre>
+        </div> -->
+
+        <!--------------------- References --------------------->
+        <br /><br />
+        <div class="container">
+            <div align="center"><h2>References</h2></div>
+            <hr />
+            <p>
+                [1] Karras, Tero, et al. "Guiding a diffusion model with a bad version of itself." NeurIPS 2024.
+                <br />
+                [2] Yu, Sihyun, et al. "Representation alignment for generation: Training diffusion transformers is easier than you think." ICLR 2025.
+                <br />
+                [3] Yao, Jingfeng, et al. "Reconstruction vs. generation: Taming optimization dilemma in latent diffusion models." CVPR 2025.
+            </p>
+        </div>
+
+        <br /><br /><br />
+    </body>
+    <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const opts = { root: null, threshold: 0.2 };          // 20 % visible
+  const io   = new IntersectionObserver(handle, opts);
+
+  document.querySelectorAll('video.lazyvid').forEach(v => {
+    io.observe(v);                                      // start watching
+  });
+
+  function handle(entries) {
+    entries.forEach(entry => {
+      const v = entry.target;
+      if (entry.isIntersecting) {
+        hydrate(v);                                     // wire up src once
+        v.play().catch(()=>{});                         // mute → autoplay OK
+      } else {
+        v.pause();
+      }
+    });
+  }
+
+  function hydrate(v) {
+    if (v.dataset.hydrated) return;                     // run once
+    v.querySelectorAll('source').forEach(s => {
+      s.src = s.dataset.src;                            // swap data-src → src
+    });
+    v.load();                                           // kick off buffering
+    v.dataset.hydrated = true;
+  }
+});
+    </script>
+</html>
